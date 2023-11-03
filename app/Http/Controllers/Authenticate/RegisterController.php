@@ -31,6 +31,10 @@ class RegisterController extends BaseAPIController
             'email' => $request->email,
             'password' =>  $request->password, //Hash::make('default'), //Must change password on first login
             'user_type' => $request->user_type,
+            'agency_id' => $request->agency_id,
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'date_of_engagement' => $request->date_of_engagement,
         ]);
 
         return BaseAPIController::sendSuccess($registerUser,  "SUCCESS", Response::HTTP_OK); 
