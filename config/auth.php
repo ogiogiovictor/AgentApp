@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'ops' => [
+            'driver' => 'session', // You can use 'token' if you prefer token-based authentication
+            'provider' => 'ops_users', // Specify your custom provider here if you have one
+        ],
     ],
 
     /*
@@ -63,6 +68,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+
+        'ops_users' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Ops\OpsUser::class, // Specify your OpsUser model here
         ],
 
         // 'users' => [

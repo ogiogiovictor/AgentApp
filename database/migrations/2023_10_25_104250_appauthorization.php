@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('domain_name')->index()->nullable();
             $table->string('ip_address')->index()->nullable();
-            $table->boolean('app-secret')->index()->nullable();
-            $table->boolean('app-token')->nullable();
-            $table->boolean('App_Name')->nullable();
-            $table->boolean('status', ['on', 'off'])->default('off');
+            $table->string('app_secret')->index()->nullable(); // Changed column name to use underscore instead of dash
+            $table->string('app_token')->nullable();
+            $table->string('app_name')->nullable(); // Changed column name to use underscore instead of camel case
+            $table->enum('status', ['on', 'off'])->default('off');
             $table->timestamps();
         });
     }

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Payment\Paymentcontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -8,10 +9,13 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
+
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('catch_response', [Paymentcontroller::class, 'catchResponse']);
 
 Route::get('/', function () {
     return view('welcome');

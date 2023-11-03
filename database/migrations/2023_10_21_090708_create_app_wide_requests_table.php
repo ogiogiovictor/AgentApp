@@ -15,13 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('user_id')->index()->nullable();
             $table->string('ip_address')->index()->nullable();
-            $table->boolean('ajax')->index()->nullable();
-            $table->boolean('url')->nullable();
-            $table->boolean('method')->nullable();
-            $table->boolean('user_agent')->nullable();
+            $table->string('ajax')->index()->nullable();
+            $table->string('url')->nullable();
+            $table->string('method')->nullable();
+            $table->string('user_agent')->nullable();
             $table->jsonb('payload')->nullable();
             $table->integer('status_code')->index()->nullable();
-            $table->string('response')->index()->nullable();
+            $table->longText('response')->nullable();
             $table->timestamps();
         });
     }

@@ -28,6 +28,10 @@ class TerminatingMiddleware
     {
 
         $user = isset(Auth::user()->id) ? Auth::user()->id : null;
+
+        $getresonseContent = $response->getContent();
+        $response = substr($getresonseContent, 0, 4294967295); // Adjust the length (255 in this example) to fit your column size
+
         //Data points to captures
         $data = [
             'user_id' => $user,
@@ -37,8 +41,8 @@ class TerminatingMiddleware
             'method'    =>  $request->method(),
             'user_agent'    =>  $request->userAgent(),
             'payload'   =>  $request->toArray(),
-            'status_code'  =>  $response->getStatusCode(),
-            'response'  =>  $response->getContent(),
+            'status_code'  =>  method_exists($response, 'getStatusCode') ? $response->getStatusCode() : null,
+            'response'  => $response,
             
         ];
 

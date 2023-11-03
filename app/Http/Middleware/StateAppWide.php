@@ -20,9 +20,15 @@ class StateAppWide
         $allowedIPs = appAuthorization::pluck('ip_address')->toArray();
         $clientIP = $request->ip();
 
-        if (!in_array($clientIP, $allowedIPs)) {
-            return $this->getResponse(401, 'Host IP Not Allowed ' . $_SERVER['HTTP_HOST'] . " -request- " . $clientIP . " serverip- " . $_SERVER['SERVER_ADDR']);
+        if (!empty($_SERVER['SERVER_ADDR'])) {
+            $serverIP = $_SERVER['SERVER_ADDR'];
+        } else {
+            $serverIP = 'unknown';
         }
+    
+        // if (!in_array($clientIP, $allowedIPs)) {
+        //     return $this->getResponse(401, 'Host IP Not Allowed ' . $_SERVER['HTTP_HOST'] . " -request- " . $clientIP . " serverip- " . $serverIP);
+        // }
 
         $appSecret = $request->header('app-secret');
         $appToken = $request->header('app-token');
@@ -32,7 +38,7 @@ class StateAppWide
         }
 
         try {
-            $matches = ['app-secret' => $appSecret, 'app-token' => $appToken, 'status' => 'on'];
+            $matches = ['app_secret' => $appSecret, 'app_token' => $appToken, 'status' => 'on'];
             $checkRequest = appAuthorization::where($matches)->exists();
 
             if ($checkRequest) {

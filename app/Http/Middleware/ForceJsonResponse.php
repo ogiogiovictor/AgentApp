@@ -5,11 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-//use App\Models\AppWide\appAuthorization;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-
-class Appauthorization
+class ForceJsonResponse
 {
     /**
      * Handle an incoming request.
@@ -18,6 +15,16 @@ class Appauthorization
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
+       
+        try{
+
+            $response = $next($request);
+            $response->headers->set('Accept', 'application/json');
+            return $response;
+
+        }catch (\Exception $e){
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+        
     }
 }
